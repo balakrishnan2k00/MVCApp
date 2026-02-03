@@ -7,14 +7,22 @@ namespace MVCApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private ApplicationDBContext _dbContext;
+        public HomeController(ILogger<HomeController> logger, ApplicationDBContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;//always
         }
 
         public IActionResult Index()
         {
+
+
+
+
+
+
+
             return View();
         }
 
