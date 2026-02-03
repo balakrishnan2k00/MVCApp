@@ -17,6 +17,29 @@ namespace MVCApp.Controllers
 
         public IActionResult Index()
         {
+            //Explicit Loading 
+
+                // example to load a collection - parent to child
+
+                Villa? vilatemp = _dbContext.villas.FirstOrDefault(a => a.Id ==1);
+               
+                _dbContext.Entry(vilatemp).Collection(u => u.VillaAmenity).Load();
+                
+                // example to load a reference - child to parent
+
+                VillaAmenity? vilaamenitytemp = _dbContext.villaAmenities.FirstOrDefault(a => a.Id == 1);
+               
+                _dbContext.Entry(vilaamenitytemp).Reference(u => u.Villa).Load();
+                
+
+
+            //Eager Loading
+
+                List<Villa> eager_villas = _dbContext.villas.Include(u => u.VillaAmenity).ToList(); //.ThenInclude for VillaAmenity child
+
+
+
+
             //lazy loading - default
                 IEnumerable<Villa> villas1 = _dbContext.villas;
 
@@ -38,11 +61,6 @@ namespace MVCApp.Controllers
                 {
                     villa.VillaAmenity = _dbContext.villaAmenities.Where(u => u.VillaId == villa.Id).ToList();
                 }
-
-            //Eager Loading
-
-                List<Villa> eager_villas = _dbContext.villas.Include(u => u.VillaAmenity).ToList(); //.ThenInclude for VillaAmenity child
-
 
 
             return View();
