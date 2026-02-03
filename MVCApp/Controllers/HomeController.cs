@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVCApp.Models;
 
 namespace MVCApp.Controllers
@@ -40,7 +41,7 @@ namespace MVCApp.Controllers
 
             //Eager Loading
 
-
+                List<Villa> eager_villas = _dbContext.villas.Include(u => u.VillaAmenity).ToList(); //.ThenInclude for VillaAmenity child
 
 
 
